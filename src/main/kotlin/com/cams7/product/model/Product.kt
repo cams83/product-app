@@ -28,7 +28,7 @@ data class Product(
     @Min(0)
     val cost: BigDecimal,
 
-    @Schema(description = "Product price", example = "20.00")
+    @Schema(description = "Product price", example = "21.99")
     @NotNull
     @Min(0)
     val price: BigDecimal

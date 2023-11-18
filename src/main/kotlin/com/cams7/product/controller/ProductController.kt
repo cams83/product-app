@@ -28,16 +28,16 @@ class ProductController(private val productService: ProductService) {
     @ResponseStatus(code = OK)
     fun getProductById(@PathVariable id: BigInteger): Mono<Product> = productService.getProductById(id)
 
-    @Operation(summary = "Create a new product", parameters = [Parameter(name = "product", description = "Product to create", required = true)])
+    @Operation(summary = "Create a new product")
     @PostMapping
     @ResponseStatus(code = CREATED)
-    fun createProduct(@RequestBody product: Product): Mono<Product> = productService.createProduct(product)
+    fun createProduct(@RequestBody product: Mono<@Valid Product>): Mono<Product> = product.flatMap { productService.createProduct(it) }
 
-    @Operation(summary = "Update a product", parameters = [Parameter(name = "id", description = "Product id", required = true), Parameter(name = "product", description = "Product to update", required = true)])
+    @Operation(summary = "Update a product", parameters = [Parameter(name = "id", description = "Product id", required = true)])
     @PutMapping("/{id}")
     @ResponseStatus(code = OK)
-    fun updateProduct(@PathVariable id: BigInteger, @RequestBody updatedProduct: Product): Mono<Product> =
-        productService.updateProduct(id, updatedProduct)
+    fun updateProduct(@PathVariable id: BigInteger, @RequestBody updatedProduct: Mono<@Valid Product>): Mono<Product> =
+        updatedProduct.flatMap { productService.updateProduct(id, it) }
 
     @Operation(summary = "Delete a product", parameters = [Parameter(name = "id", description = "Product id", required = true)])
     @DeleteMapping("/{id}")
