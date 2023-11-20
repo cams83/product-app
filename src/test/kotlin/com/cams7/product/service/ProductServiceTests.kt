@@ -51,7 +51,7 @@ class ProductServiceTests {
         val result = productService.getProductById(productId).block()
 
         assertNotNull(result)
-        assertEquals("Product1", result!!.name)
+        assertEquals("Product1", result?.name)
     }
 
     @Test
@@ -63,11 +63,9 @@ class ProductServiceTests {
 
         val result = productService.createProduct(mockProduct).block()
 
-        println(result)
-
         assertNotNull(result)
-        assertEquals(BigInteger.valueOf(1L), result!!.id)
-        assertEquals("NewProduct", result!!.name )
+        assertEquals(BigInteger.valueOf(1L), result?.id)
+        assertEquals("NewProduct", result?.name )
     }
 
     @Test
@@ -82,7 +80,7 @@ class ProductServiceTests {
         val result = productService.updateProduct(productId, updatedProduct).block()
 
         assertNotNull(result)
-        assertEquals("UpdatedProduct", result!!.name)
+        assertEquals("UpdatedProduct", result?.name)
     }
 
     @Test
