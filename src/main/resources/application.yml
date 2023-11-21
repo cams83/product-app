@@ -1,5 +1,10 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+  forward-headers-strategy: framework
 spring:
   r2dbc:
-    url: ${MYSQL_URL}
-    username: ${MYSQL_USER}
-    password: ${MYSQL_PASSWORD}
+    url: ${MYSQL_URL:r2dbc:mysql://localhost:3306/somedb}
+    username: ${MYSQL_USER:someuser}
+    password: ${MYSQL_PASSWORD:somepassw}

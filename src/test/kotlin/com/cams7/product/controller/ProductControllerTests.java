@@ -25,7 +25,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @AutoConfigureWebTestClient
 class ProductControllerTests {
 
-  static final String API_URI = "/api/products";
+  static final String PRODUCTS_URI = "/api/products";
 
   @Container
   private static final MySQLContainer<?> mySQLContainer =
@@ -70,7 +70,7 @@ class ProductControllerTests {
 
     webTestClient
         .get()
-        .uri(API_URI)
+        .uri(PRODUCTS_URI)
         .exchange()
         .expectStatus()
         .isOk()
@@ -96,7 +96,7 @@ class ProductControllerTests {
 
     webTestClient
         .get()
-        .uri(String.format("%s/%d", API_URI, savedProduct.getId()))
+        .uri(String.format("%s/%d", PRODUCTS_URI, savedProduct.getId()))
         .exchange()
         .expectStatus()
         .isOk()
@@ -119,7 +119,7 @@ class ProductControllerTests {
 
     webTestClient
         .post()
-        .uri(API_URI)
+        .uri(PRODUCTS_URI)
         .contentType(MediaType.APPLICATION_JSON)
         .bodyValue(newProduct)
         .exchange()
@@ -154,7 +154,7 @@ class ProductControllerTests {
 
     webTestClient
         .put()
-        .uri(String.format("%s/%d", API_URI, savedProduct.getId()))
+        .uri(String.format("%s/%d", PRODUCTS_URI, savedProduct.getId()))
         .contentType(MediaType.APPLICATION_JSON)
         .bodyValue(updatedProduct)
         .exchange()
@@ -181,7 +181,7 @@ class ProductControllerTests {
 
     webTestClient
         .delete()
-        .uri(String.format("%s/%d", API_URI, savedProduct.getId()))
+        .uri(String.format("%s/%d", PRODUCTS_URI, savedProduct.getId()))
         .exchange()
         .expectStatus()
         .isNoContent();
